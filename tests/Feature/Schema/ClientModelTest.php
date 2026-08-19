@@ -30,4 +30,15 @@ class ClientModelTest extends TestCase
 
         Client::create(['name' => 'Other Carla', 'phone' => '+59899123456']);
     }
+
+    public function test_phone_is_normalized_to_e164_through_the_cast(): void
+    {
+        $client = Client::create(['name' => 'Carla', 'phone' => '099123456']);
+
+        $this->assertSame('+59899123456', $client->fresh()->phone);
+        $this->assertDatabaseHas('clients', [
+            'name' => 'Carla',
+            'phone' => '+59899123456',
+        ]);
+    }
 }
