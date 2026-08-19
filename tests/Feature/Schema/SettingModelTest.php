@@ -33,4 +33,16 @@ class SettingModelTest extends TestCase
 
         Setting::create(['key' => 'slot_grid_minutes', 'value' => '30']);
     }
+
+    public function test_get_returns_the_stored_value(): void
+    {
+        Setting::create(['key' => 'slot_grid_minutes', 'value' => '30']);
+
+        $this->assertSame('30', Setting::get('slot_grid_minutes', '15'));
+    }
+
+    public function test_get_returns_the_default_when_key_is_missing(): void
+    {
+        $this->assertSame('15', Setting::get('slot_grid_minutes', '15'));
+    }
 }
