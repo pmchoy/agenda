@@ -1,20 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
+// The SPA (frontend/, built in a later phase) is served for any non-API,
+// non-Sanctum, non-health, non-storage path. Laravel itself no longer
+// renders any Blade views — see sdd/scheduling-core design-addendum-api-spa.
+Route::get('/{any?}', function () {
+    return response()->file(public_path('app/index.html'));
+})->where('any', '^(?!api|sanctum|up|storage).*$');
