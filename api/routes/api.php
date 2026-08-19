@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AgendaController;
+use App\Http\Controllers\Api\V1\AppointmentController;
+use App\Http\Controllers\Api\V1\AppointmentStatusController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\AvailabilityController;
 use App\Http\Controllers\Api\V1\BusinessHoursController;
 use App\Http\Controllers\Api\V1\ClientController;
 use App\Http\Controllers\Api\V1\PasswordResetController;
@@ -34,5 +38,10 @@ Route::prefix('v1')->group(function () {
 
         Route::get('settings', [SettingsController::class, 'index']);
         Route::put('settings', [SettingsController::class, 'update']);
+
+        Route::get('availability', [AvailabilityController::class, 'index']);
+        Route::apiResource('appointments', AppointmentController::class);
+        Route::patch('appointments/{appointment}/status', [AppointmentStatusController::class, 'update']);
+        Route::get('agenda', [AgendaController::class, 'index']);
     });
 });
