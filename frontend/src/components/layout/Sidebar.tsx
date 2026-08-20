@@ -23,7 +23,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { to: '/agenda', label: 'Agenda', icon: CalendarClock },
   { to: '/catalog/categories', label: 'Catalog', icon: LayoutGrid, match: '/catalog' },
-  { to: '/professionals', label: 'Professionals', icon: UserRound },
+  { to: '/professionals', label: 'Professionals', icon: UserRound, match: '/professionals' },
   { to: '/clients', label: 'Clients', icon: Users },
   { to: '/business-hours', label: 'Business hours', icon: Clock },
   { to: '/settings', label: 'Settings', icon: Settings },
