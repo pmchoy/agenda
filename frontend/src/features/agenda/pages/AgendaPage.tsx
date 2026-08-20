@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
@@ -7,17 +7,19 @@ import { Label } from '@/components/ui/label'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { Switch } from '@/components/ui/switch'
 import type { AgendaView } from '@/features/agenda/api'
-import { DayAgenda } from '@/features/agenda/components/DayAgenda'
-import { WeekAgenda } from '@/features/agenda/components/WeekAgenda'
+import { CalendarView } from '@/features/agenda/components/CalendarView'
 import { useAgenda } from '@/features/agenda/queries'
-import { addDays, formatDateLabel, todayInMontevideo } from '@/lib/datetime'
-import { cn } from '@/lib/utils'
+import { formatDateLabel, todayInMontevideo } from '@/lib/datetime'
 
 /**
- * Daily/weekly agenda — both list-based views, never a calendar-grid widget
- * (deliberate design decision, see `sdd/scheduling-core/design`). State
- * lives in the URL (`?view=day|week&date=&include_cancelled=`) so the agenda
- * is bookmarkable and survives a refresh, matching the booking flow's
+ * Daily/weekly agenda, rendered as a professional calendar view via
+ * `react-big-calendar` — day view is one column per professional, week view
+ * is a single shared timeline colored per professional. Replaces the earlier
+ * list-based agenda (`DayAgenda`/`WeekAgenda`); navigation now comes from
+ * react-big-calendar's own toolbar (Hoy/Atrás/Siguiente + Día/Semana) instead
+ * of custom prev/next buttons. State still lives in the URL
+ * (`?view=day|week&date=&include_cancelled=`) so the agenda stays
+ * bookmarkable and survives a refresh, matching the booking flow's
  * GET-based step convention.
  */
 export function AgendaPage() {
@@ -34,12 +36,6 @@ export function AgendaPage() {
     setSearchParams(next)
   }
 
-  function step(direction: -1 | 1) {
-    setParam('date', addDays(date, direction * (view === 'week' ? 7 : 1)))
-  }
-
-  const viewLabels: Record<AgendaView, string> = { day: 'Día', week: 'Semana' }
-
   return (
     <div>
       <PageHeader
@@ -54,47 +50,17 @@ export function AgendaPage() {
         }
       />
 
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-1 rounded-md border border-border p-1">
-          {(['day', 'week'] as const).map((value) => (
-            <button
-              key={value}
-              type="button"
-              onClick={() => setParam('view', value)}
-              className={cn(
-                'rounded px-3 py-1.5 text-sm font-medium transition-colors',
-                view === value
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground',
-              )}
-            >
-              {viewLabels[value]}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => step(-1)} aria-label="Anterior">
-            <ChevronLeft />
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => setParam('date', todayInMontevideo())}>
-            Hoy
-          </Button>
-          <Button variant="outline" size="icon" onClick={() => step(1)} aria-label="Siguiente">
-            <ChevronRight />
-          </Button>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Switch
-            id="include-cancelled"
-            checked={includeCancelled}
-            onCheckedChange={(checked) => setParam('include_cancelled', String(checked))}
-          />
-          <Label htmlFor="include-cancelled" className="text-sm font-normal text-muted-foreground">
-            Mostrar cancelados
-          </Label>
-        </div>
+      {/* react-big-calendar has no built-in slot for a custom toggle, so this
+          sits just above its toolbar rather than inside it. */}
+      <div className="mb-4 flex items-center justify-end gap-2">
+        <Switch
+          id="include-cancelled"
+          checked={includeCancelled}
+          onCheckedChange={(checked) => setParam('include_cancelled', String(checked))}
+        />
+        <Label htmlFor="include-cancelled" className="text-sm font-normal text-muted-foreground">
+          Mostrar cancelados
+        </Label>
       </div>
 
       <DataState
@@ -104,12 +70,16 @@ export function AgendaPage() {
         onRetry={() => void agenda.refetch()}
         isEmpty={false}
       >
-        {agenda.data &&
-          (view === 'day' ? (
-            <DayAgenda appointments={agenda.data.days[date] ?? []} />
-          ) : (
-            <WeekAgenda days={agenda.data.days} order={agenda.data.meta.days} />
-          ))}
+        {agenda.data && (
+          <CalendarView
+            view={view}
+            date={date}
+            days={agenda.data.days}
+            weekOrder={agenda.data.meta.days}
+            onNavigate={(nextDate) => setParam('date', nextDate)}
+            onViewChange={(nextView) => setParam('view', nextView)}
+          />
+        )}
       </DataState>
     </div>
   )

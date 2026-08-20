@@ -1,0 +1,180 @@
+/**
+ * Theme override for react-big-calendar's stock stylesheet
+ * (`react-big-calendar/lib/css/react-big-calendar.css`), scoped under
+ * `.agenda-calendar` so it never leaks into other pages. Reuses this app's
+ * existing CSS custom properties from `index.css` (the same tokens Tailwind's
+ * `@theme inline` block aliases for utility classes) rather than duplicating
+ * the wine/plum palette — keeps the calendar visually consistent with the
+ * rest of the dashboard (`features/auth`, `features/appointments`) instead of
+ * shipping the library's default Bootstrap-blue look.
+ */
+
+.agenda-calendar {
+  --rbc-border: var(--border);
+  font-family: var(--font-sans);
+  color: var(--foreground);
+}
+
+/* Toolbar (Hoy / Atrás / Siguiente / Día / Semana) */
+.agenda-calendar .rbc-toolbar {
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.agenda-calendar .rbc-toolbar .rbc-toolbar-label {
+  flex-grow: 0;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--foreground);
+  text-transform: capitalize;
+}
+
+.agenda-calendar .rbc-btn-group {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+.agenda-calendar .rbc-toolbar button {
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md);
+  padding: 0.375rem 0.75rem;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: background-color 0.15s ease;
+}
+
+.agenda-calendar .rbc-btn-group > button + button {
+  margin-left: 0;
+}
+
+.agenda-calendar .rbc-toolbar button:hover {
+  color: var(--accent-foreground);
+  background: var(--accent);
+  border-color: var(--input);
+}
+
+.agenda-calendar .rbc-toolbar button:active,
+.agenda-calendar .rbc-toolbar button.rbc-active {
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: none;
+}
+
+.agenda-calendar .rbc-toolbar button:active:hover,
+.agenda-calendar .rbc-toolbar button.rbc-active:hover {
+  color: var(--primary-foreground);
+  background: var(--primary);
+  opacity: 0.9;
+}
+
+.agenda-calendar .rbc-toolbar button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* Grid chrome */
+.agenda-calendar .rbc-time-view,
+.agenda-calendar .rbc-month-view {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.agenda-calendar .rbc-header {
+  background: var(--muted);
+  color: var(--muted-foreground);
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  padding: 0.5rem 0.375rem;
+}
+
+.agenda-calendar .rbc-header + .rbc-header,
+.agenda-calendar .rbc-time-header-content,
+.agenda-calendar .rbc-day-bg + .rbc-day-bg,
+.agenda-calendar .rbc-time-content > * + * > *,
+.agenda-calendar .rbc-timeslot-group,
+.agenda-calendar .rbc-time-header.rbc-overflowing,
+.agenda-calendar .rbc-time-header > .rbc-row:first-child,
+.agenda-calendar .rbc-time-header > .rbc-row.rbc-row-resource {
+  border-color: var(--border);
+}
+
+.agenda-calendar .rbc-time-content {
+  border-top: 1px solid var(--border);
+}
+
+.agenda-calendar .rbc-time-gutter,
+.agenda-calendar .rbc-label {
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.agenda-calendar .rbc-time-view-resources .rbc-time-gutter,
+.agenda-calendar .rbc-time-view-resources .rbc-time-header-gutter {
+  background: var(--background);
+  border-right: 1px solid var(--border);
+}
+
+.agenda-calendar .rbc-today {
+  background-color: color-mix(in oklch, var(--accent) 45%, var(--background));
+}
+
+.agenda-calendar .rbc-off-range-bg {
+  background: var(--muted);
+}
+
+.agenda-calendar .rbc-off-range {
+  color: var(--muted-foreground);
+}
+
+.agenda-calendar .rbc-current-time-indicator {
+  background-color: var(--destructive);
+  height: 2px;
+}
+
+/* Events */
+.agenda-calendar .rbc-event {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  color: var(--primary-foreground);
+  font-size: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.agenda-calendar .rbc-event:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.agenda-calendar .rbc-event.rbc-selected {
+  filter: brightness(0.9);
+}
+
+.agenda-calendar .rbc-day-slot .rbc-event {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.agenda-calendar .rbc-show-more {
+  color: var(--primary);
+  background: color-mix(in oklch, var(--card) 70%, transparent);
+  font-weight: 600;
+}
+
+/* Cancelled appointments: muted + struck through, still colored per
+ * professional so they stay identifiable while clearly read as inactive. */
+.agenda-calendar .agenda-event--cancelled {
+  opacity: 0.5;
+  text-decoration: line-through;
+  filter: grayscale(35%);
+}
