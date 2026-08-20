@@ -29,7 +29,13 @@ export async function fetchAgenda(params: AgendaParams): Promise<AgendaResult> {
     params: {
       view: params.view,
       date: params.date,
-      include_cancelled: params.includeCancelled,
+      // Sent as 0/1, not the JS boolean, so axios's default params
+      // serializer produces "0"/"1" rather than the literal strings
+      // "true"/"false" — Laravel's `boolean` validation rule (see
+      // AgendaQueryRequest) only accepts 1/0/'1'/'0'/true/false, not the
+      // string forms "true"/"false", so passing the raw boolean 422s on
+      // every request (discovered during Phase 8 end-to-end smoke testing).
+      include_cancelled: params.includeCancelled ? 1 : 0,
     },
   })
   return { days: data.data, meta: data.meta }
