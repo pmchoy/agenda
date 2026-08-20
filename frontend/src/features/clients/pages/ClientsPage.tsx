@@ -15,11 +15,11 @@ export function ClientsPage() {
   return (
     <div>
       <PageHeader
-        title="Clients"
-        description="Everyone who has booked or been booked for an appointment."
+        title="Clientes"
+        description="Todas las personas que reservaron o fueron reservadas para un turno."
         actions={
           <Button onClick={() => setIsCreating(true)}>
-            <Plus /> New client
+            <Plus /> Nuevo cliente
           </Button>
         }
       />
@@ -30,9 +30,9 @@ export function ClientsPage() {
         error={error}
         onRetry={() => refetch()}
         isEmpty={!!clients && clients.length === 0}
-        emptyTitle="No clients yet"
-        emptyDescription="Clients are usually created automatically when booking an appointment, but you can add one manually here."
-        emptyAction={<Button onClick={() => setIsCreating(true)}>New client</Button>}
+        emptyTitle="Todavía no hay clientes"
+        emptyDescription="Los clientes suelen crearse automáticamente al reservar un turno, pero puede agregar uno manualmente aquí."
+        emptyAction={<Button onClick={() => setIsCreating(true)}>Nuevo cliente</Button>}
       >
         {clients && <ClientList clients={clients} />}
       </DataState>

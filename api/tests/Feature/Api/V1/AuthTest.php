@@ -16,7 +16,7 @@ class AuthTest extends TestCase
         $response = $this->getJson('/api/v1/user');
 
         $response->assertStatus(401)
-            ->assertJson(['message' => 'Unauthenticated.']);
+            ->assertJson(['message' => 'No autenticado.']);
     }
 
     public function test_user_can_login_with_valid_credentials(): void
@@ -101,6 +101,6 @@ class AuthTest extends TestCase
             ->assertJsonValidationErrors('email');
 
         $errors = $response->json('errors.email.0');
-        $this->assertStringContainsString('seconds', $errors);
+        $this->assertStringContainsString('segundos', $errors);
     }
 }

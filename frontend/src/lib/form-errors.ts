@@ -36,7 +36,7 @@ export function hasFieldErrors(error: unknown): boolean {
 /** Human-readable fallback message for any non-field-level API error. */
 export function extractErrorMessage(error: unknown): string {
   if (axios.isAxiosError<ApiErrorBody>(error)) {
-    return error.response?.data?.message ?? 'Something went wrong. Please try again.'
+    return error.response?.data?.message ?? 'Ocurrió un error. Por favor, intente nuevamente.'
   }
-  return 'Something went wrong. Please try again.'
+  return 'Ocurrió un error. Por favor, intente nuevamente.'
 }

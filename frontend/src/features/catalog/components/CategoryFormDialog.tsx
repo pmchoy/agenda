@@ -23,7 +23,7 @@ import { applyServerErrors, extractErrorMessage, hasFieldErrors } from '@/lib/fo
 import type { ServiceCategory } from '@/types/api'
 
 const categorySchema = z.object({
-  name: z.string().min(1, 'Name is required.').max(255),
+  name: z.string().min(1, 'El nombre es obligatorio.').max(255),
   sort_order: z.number().int().min(0),
   is_active: z.boolean(),
 })
@@ -68,7 +68,7 @@ export function CategoryFormDialog({ open, onOpenChange, category }: CategoryFor
 
     action
       .then(() => {
-        toast.success(isEditing ? 'Category updated.' : 'Category created.')
+        toast.success(isEditing ? 'Categoría actualizada.' : 'Categoría creada.')
         onOpenChange(false)
       })
       .catch((error: unknown) => applyServerErrors(error, form))
@@ -78,9 +78,9 @@ export function CategoryFormDialog({ open, onOpenChange, category }: CategoryFor
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit category' : 'New category'}</DialogTitle>
+          <DialogTitle>{isEditing ? 'Editar categoría' : 'Nueva categoría'}</DialogTitle>
           <DialogDescription>
-            Categories group services in the catalog and booking flow.
+            Las categorías agrupan servicios en el catálogo y en el flujo de reserva.
           </DialogDescription>
         </DialogHeader>
 
@@ -97,9 +97,9 @@ export function CategoryFormDialog({ open, onOpenChange, category }: CategoryFor
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
-                    <Input autoFocus placeholder="e.g. Hair" {...field} />
+                    <Input autoFocus placeholder="ej. Cabello" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,7 +111,7 @@ export function CategoryFormDialog({ open, onOpenChange, category }: CategoryFor
               name="sort_order"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sort order</FormLabel>
+                  <FormLabel>Orden</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -134,9 +134,9 @@ export function CategoryFormDialog({ open, onOpenChange, category }: CategoryFor
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border border-border p-3">
                   <div>
-                    <FormLabel>Active</FormLabel>
+                    <FormLabel>Activo</FormLabel>
                     <p className="text-sm text-muted-foreground">
-                      Inactive categories are hidden from booking.
+                      Las categorías inactivas se ocultan en la reserva de turnos.
                     </p>
                   </div>
                   <FormControl>
@@ -148,11 +148,11 @@ export function CategoryFormDialog({ open, onOpenChange, category }: CategoryFor
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-                Cancel
+                Cancelar
               </Button>
               <Button type="submit" disabled={mutation.isPending}>
                 {mutation.isPending && <Loader2 className="animate-spin" />}
-                {isEditing ? 'Save changes' : 'Create category'}
+                {isEditing ? 'Guardar cambios' : 'Crear categoría'}
               </Button>
             </DialogFooter>
           </form>

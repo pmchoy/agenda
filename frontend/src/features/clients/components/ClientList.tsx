@@ -19,10 +19,10 @@ export function ClientList({ clients }: { clients: Client[] }) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Phone</TableHead>
-            <TableHead>Notes</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead>Nombre</TableHead>
+            <TableHead>Teléfono</TableHead>
+            <TableHead>Notas</TableHead>
+            <TableHead className="text-right">Acciones</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -38,22 +38,22 @@ export function ClientList({ clients }: { clients: Client[] }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    aria-label={`Edit ${client.name}`}
+                    aria-label={`Editar ${client.name}`}
                     onClick={() => setEditing(client)}
                   >
                     <Pencil />
                   </Button>
                   <ConfirmDeleteDialog
                     trigger={
-                      <Button variant="ghost" size="icon" aria-label={`Delete ${client.name}`}>
+                      <Button variant="ghost" size="icon" aria-label={`Eliminar ${client.name}`}>
                         <Trash2 />
                       </Button>
                     }
-                    title={`Delete "${client.name}"?`}
-                    description="This cannot be undone. Past appointments for this client are not affected."
+                    title={`¿Eliminar "${client.name}"?`}
+                    description="Esta acción no se puede deshacer. Los turnos pasados de este cliente no se ven afectados."
                     onConfirm={() =>
                       deleteClient.mutate(client.id, {
-                        onSuccess: () => toast.success('Client deleted.'),
+                        onSuccess: () => toast.success('Cliente eliminado.'),
                         onError: (error) => toast.error(extractErrorMessage(error)),
                       })
                     }

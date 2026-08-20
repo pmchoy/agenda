@@ -25,11 +25,11 @@ export function AppointmentDetailPage() {
     <div>
       <Button variant="ghost" size="sm" asChild className="mb-2 -ml-2">
         <Link to="/agenda">
-          <ArrowLeft /> Back to agenda
+          <ArrowLeft /> Volver a la agenda
         </Link>
       </Button>
 
-      <PageHeader title="Appointment" description="Details, reschedule, and cancellation." />
+      <PageHeader title="Turno" description="Detalles, reprogramación y cancelación." />
 
       <DataState
         isLoading={isPending}
@@ -60,20 +60,20 @@ export function AppointmentDetailPage() {
 
               <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">Client</dt>
+                  <dt className="text-xs font-medium text-muted-foreground">Cliente</dt>
                   <dd className="text-sm text-foreground">{appointment.client?.name}</dd>
                   <dd className="text-sm text-muted-foreground">{appointment.client?.phone}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">Service</dt>
+                  <dt className="text-xs font-medium text-muted-foreground">Servicio</dt>
                   <dd className="text-sm text-foreground">{appointment.service?.name}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">Professional</dt>
+                  <dt className="text-xs font-medium text-muted-foreground">Profesional</dt>
                   <dd className="text-sm text-foreground">{appointment.professional?.name}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">Notes</dt>
+                  <dt className="text-xs font-medium text-muted-foreground">Notas</dt>
                   <dd className="text-sm text-foreground">{appointment.notes ?? '—'}</dd>
                 </div>
               </dl>
@@ -81,11 +81,11 @@ export function AppointmentDetailPage() {
               {isActionable && (
                 <div className="flex gap-2 border-t border-border pt-4">
                   <Button variant="outline" onClick={() => setIsRescheduling(true)}>
-                    Reschedule
+                    Reprogramar
                   </Button>
                   <CancelAppointmentDialog
                     appointmentId={appointment.id}
-                    trigger={<Button variant="outline">Cancel appointment</Button>}
+                    trigger={<Button variant="outline">Cancelar turno</Button>}
                   />
                 </div>
               )}

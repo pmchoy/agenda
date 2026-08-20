@@ -71,13 +71,13 @@ export function RescheduleDialog({ appointment, open, onOpenChange }: Reschedule
       { starts_at: selectedSlot.starts_at, professional_id: selectedSlot.professional_id },
       {
         onSuccess: () => {
-          toast.success('Appointment rescheduled.')
+          toast.success('Turno reprogramado.')
           onOpenChange(false)
         },
         onError: (error) => {
           if (isSlotConflictError(error)) {
             setSelectedSlot(null)
-            setConflictMessage('That time was just booked by someone else — pick another one below.')
+            setConflictMessage('Ese horario acaba de ser reservado por otra persona — elija otro a continuación.')
             void availability.refetch()
             return
           }
@@ -91,10 +91,10 @@ export function RescheduleDialog({ appointment, open, onOpenChange }: Reschedule
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Reschedule appointment</DialogTitle>
+          <DialogTitle>Reprogramar turno</DialogTitle>
           <DialogDescription>
-            Pick a new date and time for {appointment.client?.name ?? 'this client'}&apos;s{' '}
-            {appointment.service?.name}.
+            Elija una nueva fecha y hora para el turno de {appointment.service?.name} de{' '}
+            {appointment.client?.name ?? 'este cliente'}.
           </DialogDescription>
         </DialogHeader>
 
@@ -106,7 +106,7 @@ export function RescheduleDialog({ appointment, open, onOpenChange }: Reschedule
 
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-2">
-            <Label htmlFor="reschedule-date">Date</Label>
+            <Label htmlFor="reschedule-date">Fecha</Label>
             <Input
               id="reschedule-date"
               type="date"
@@ -119,7 +119,7 @@ export function RescheduleDialog({ appointment, open, onOpenChange }: Reschedule
             />
           </div>
           <div className="space-y-2">
-            <Label>Professional</Label>
+            <Label>Profesional</Label>
             <Select
               value={String(professionalId)}
               onValueChange={(value) => {
@@ -131,7 +131,7 @@ export function RescheduleDialog({ appointment, open, onOpenChange }: Reschedule
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="any">No preference</SelectItem>
+                <SelectItem value="any">Sin preferencia</SelectItem>
                 {eligibleProfessionals.map((professional) => (
                   <SelectItem key={professional.id} value={String(professional.id)}>
                     {professional.name}
@@ -148,8 +148,8 @@ export function RescheduleDialog({ appointment, open, onOpenChange }: Reschedule
           error={availability.error}
           onRetry={() => void availability.refetch()}
           isEmpty={!!availability.data && availability.data.slots.length === 0}
-          emptyTitle="No availability that day"
-          emptyDescription="Try a different date or professional."
+          emptyTitle="No hay disponibilidad ese día"
+          emptyDescription="Pruebe con otra fecha o profesional."
         >
           {availability.data && (
             <SlotGrid
@@ -166,10 +166,10 @@ export function RescheduleDialog({ appointment, open, onOpenChange }: Reschedule
 
         <DialogFooter>
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
+            Cancelar
           </Button>
           <Button type="button" onClick={handleSubmit} disabled={!selectedSlot || reschedule.isPending}>
-            Confirm new time
+            Confirmar nuevo horario
           </Button>
         </DialogFooter>
       </DialogContent>

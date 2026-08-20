@@ -20,12 +20,12 @@ export function ServiceList({ services }: { services: Service[] }) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Duration</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead>Nombre</TableHead>
+            <TableHead>Categoría</TableHead>
+            <TableHead>Duración</TableHead>
+            <TableHead>Precio</TableHead>
+            <TableHead>Estado</TableHead>
+            <TableHead className="text-right">Acciones</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -37,7 +37,7 @@ export function ServiceList({ services }: { services: Service[] }) {
               <TableCell>{service.price ?? '—'}</TableCell>
               <TableCell>
                 <Badge variant={service.is_active ? 'success' : 'muted'}>
-                  {service.is_active ? 'Active' : 'Inactive'}
+                  {service.is_active ? 'Activo' : 'Inactivo'}
                 </Badge>
               </TableCell>
               <TableCell className="text-right">
@@ -45,22 +45,22 @@ export function ServiceList({ services }: { services: Service[] }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    aria-label={`Edit ${service.name}`}
+                    aria-label={`Editar ${service.name}`}
                     onClick={() => setEditing(service)}
                   >
                     <Pencil />
                   </Button>
                   <ConfirmDeleteDialog
                     trigger={
-                      <Button variant="ghost" size="icon" aria-label={`Delete ${service.name}`}>
+                      <Button variant="ghost" size="icon" aria-label={`Eliminar ${service.name}`}>
                         <Trash2 />
                       </Button>
                     }
-                    title={`Delete "${service.name}"?`}
-                    description="This cannot be undone. Professionals qualified for this service will no longer offer it."
+                    title={`¿Eliminar "${service.name}"?`}
+                    description="Esta acción no se puede deshacer. Los profesionales habilitados para este servicio dejarán de ofrecerlo."
                     onConfirm={() =>
                       deleteService.mutate(service.id, {
-                        onSuccess: () => toast.success('Service deleted.'),
+                        onSuccess: () => toast.success('Servicio eliminado.'),
                         onError: (error) => toast.error(extractErrorMessage(error)),
                       })
                     }

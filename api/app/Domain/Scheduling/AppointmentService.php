@@ -76,7 +76,7 @@ final class AppointmentService
     {
         if (! $appointment->status->canTransitionTo($to)) {
             throw new InvalidStatusTransitionException(
-                sprintf('Cannot transition appointment %d from %s to %s.', $appointment->id, $appointment->status->value, $to->value)
+                sprintf('No se puede pasar el turno %d de %s a %s.', $appointment->id, $appointment->status->value, $to->value)
             );
         }
 
@@ -98,7 +98,7 @@ final class AppointmentService
     private function assertBookable(int $professionalId, TimeWindow $window, ?Appointment $excluding): void
     {
         if ($window->start->lt(CarbonImmutable::now())) {
-            throw new SlotUnavailableException('Cannot book a slot that starts in the past.');
+            throw new SlotUnavailableException('No se puede reservar un horario que ya pasó.');
         }
 
         $professional = Professional::findOrFail($professionalId);
@@ -108,7 +108,7 @@ final class AppointmentService
             ->contains(fn (TimeWindow $effective): bool => $window->isContainedBy($effective));
 
         if (! $fitsWithinHours) {
-            throw new OutsideWorkingHoursException('Requested time falls outside the professional\'s working hours.');
+            throw new OutsideWorkingHoursException('El horario solicitado está fuera del horario laboral del profesional.');
         }
 
         $busy = Appointment::query()
@@ -120,7 +120,7 @@ final class AppointmentService
             ->map(fn (Appointment $appointment): TimeWindow => new TimeWindow($appointment->starts_at, $appointment->ends_at));
 
         if ($window->conflictsWithAny($busy)) {
-            throw new SlotUnavailableException('Requested time overlaps an existing appointment.');
+            throw new SlotUnavailableException('El horario solicitado se superpone con un turno existente.');
         }
     }
 }

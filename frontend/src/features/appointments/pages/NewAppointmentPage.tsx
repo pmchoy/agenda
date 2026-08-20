@@ -5,8 +5,8 @@ export function NewAppointmentPage() {
   return (
     <div>
       <PageHeader
-        title="New appointment"
-        description="Book a client for a service, with a specific professional or no preference."
+        title="Nuevo turno"
+        description="Reserve un turno para un cliente, con un profesional específico o sin preferencia."
       />
       <BookingWizard />
     </div>

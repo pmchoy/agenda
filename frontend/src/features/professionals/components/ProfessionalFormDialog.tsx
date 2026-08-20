@@ -24,7 +24,7 @@ import { applyServerErrors, extractErrorMessage, hasFieldErrors } from '@/lib/fo
 import type { Professional } from '@/types/api'
 
 const professionalSchema = z.object({
-  name: z.string().min(1, 'Name is required.').max(255),
+  name: z.string().min(1, 'El nombre es obligatorio.').max(255),
   phone: z.string().max(32).optional().nullable(),
   is_active: z.boolean(),
   priority: z.number().int().min(0),
@@ -75,7 +75,7 @@ export function ProfessionalFormDialog({
 
     action
       .then(() => {
-        toast.success(isEditing ? 'Professional updated.' : 'Professional created.')
+        toast.success(isEditing ? 'Profesional actualizado.' : 'Profesional creado.')
         onOpenChange(false)
       })
       .catch((error: unknown) => applyServerErrors(error, form))
@@ -85,9 +85,9 @@ export function ProfessionalFormDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit professional' : 'New professional'}</DialogTitle>
+          <DialogTitle>{isEditing ? 'Editar profesional' : 'Nuevo profesional'}</DialogTitle>
           <DialogDescription>
-            Professionals perform services and have their own working hours.
+            Los profesionales realizan servicios y tienen su propio horario laboral.
           </DialogDescription>
         </DialogHeader>
 
@@ -104,9 +104,9 @@ export function ProfessionalFormDialog({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
-                    <Input autoFocus placeholder="e.g. Ana" {...field} />
+                    <Input autoFocus placeholder="ej. Ana" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,9 +118,9 @@ export function ProfessionalFormDialog({
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone</FormLabel>
+                  <FormLabel>Teléfono</FormLabel>
                   <FormControl>
-                    <Input placeholder="Optional" {...field} value={field.value ?? ''} />
+                    <Input placeholder="Opcional" {...field} value={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,7 +132,7 @@ export function ProfessionalFormDialog({
               name="priority"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Priority</FormLabel>
+                  <FormLabel>Prioridad</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -145,9 +145,9 @@ export function ProfessionalFormDialog({
                     />
                   </FormControl>
                   <p className="text-sm text-muted-foreground">
-                    Used only when a client has no professional preference: the lowest-priority
-                    number wins ties, then the professional&apos;s id. Does not affect anything
-                    else.
+                    Se usa solo cuando un cliente no tiene preferencia de profesional: gana el
+                    número de prioridad más bajo en caso de empate, y luego el id del profesional.
+                    No afecta nada más.
                   </p>
                   <FormMessage />
                 </FormItem>
@@ -160,7 +160,7 @@ export function ProfessionalFormDialog({
                 name="service_ids"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Qualified services</FormLabel>
+                    <FormLabel>Servicios habilitados</FormLabel>
                     <div className="grid max-h-40 grid-cols-1 gap-2 overflow-y-auto rounded-lg border border-border p-3 sm:grid-cols-2">
                       {services.map((service) => {
                         const checked = field.value.includes(service.id)
@@ -198,9 +198,9 @@ export function ProfessionalFormDialog({
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border border-border p-3">
                   <div>
-                    <FormLabel>Active</FormLabel>
+                    <FormLabel>Activo</FormLabel>
                     <p className="text-sm text-muted-foreground">
-                      Inactive professionals are excluded from availability search.
+                      Los profesionales inactivos se excluyen de la búsqueda de disponibilidad.
                     </p>
                   </div>
                   <FormControl>
@@ -212,11 +212,11 @@ export function ProfessionalFormDialog({
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-                Cancel
+                Cancelar
               </Button>
               <Button type="submit" disabled={mutation.isPending}>
                 {mutation.isPending && <Loader2 className="animate-spin" />}
-                {isEditing ? 'Save changes' : 'Create professional'}
+                {isEditing ? 'Guardar cambios' : 'Crear profesional'}
               </Button>
             </DialogFooter>
           </form>

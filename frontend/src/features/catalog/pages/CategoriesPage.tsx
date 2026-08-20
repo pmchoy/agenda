@@ -16,11 +16,11 @@ export function CategoriesPage() {
   return (
     <div>
       <PageHeader
-        title="Catalog"
-        description="Manage service categories and services offered by the salon."
+        title="Catálogo"
+        description="Administre las categorías de servicios y los servicios que ofrece el salón."
         actions={
           <Button onClick={() => setIsCreating(true)}>
-            <Plus /> New category
+            <Plus /> Nueva categoría
           </Button>
         }
       />
@@ -33,9 +33,9 @@ export function CategoriesPage() {
         error={error}
         onRetry={() => refetch()}
         isEmpty={!!categories && categories.length === 0}
-        emptyTitle="No categories yet"
-        emptyDescription="Create your first category to start building the service catalog."
-        emptyAction={<Button onClick={() => setIsCreating(true)}>New category</Button>}
+        emptyTitle="Todavía no hay categorías"
+        emptyDescription="Cree su primera categoría para empezar a armar el catálogo de servicios."
+        emptyAction={<Button onClick={() => setIsCreating(true)}>Nueva categoría</Button>}
       >
         {categories && <CategoryList categories={categories} />}
       </DataState>

@@ -24,7 +24,7 @@ export function WeekAgenda({ days, order }: WeekAgendaProps) {
             </CardHeader>
             <CardContent className="px-0">
               {appointments.length === 0 ? (
-                <p className="px-4 text-xs text-muted-foreground">No appointments</p>
+                <p className="px-4 text-xs text-muted-foreground">Sin turnos</p>
               ) : (
                 <div className="border-t border-border">
                   {appointments.map((appointment) => (

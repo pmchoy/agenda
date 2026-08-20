@@ -7,8 +7,8 @@ import { cn } from '@/lib/utils'
  * are separate pages, not tabs within one component tree. */
 export function CatalogNav() {
   const tabs = [
-    { to: '/catalog/categories', label: 'Categories' },
-    { to: '/catalog/services', label: 'Services' },
+    { to: '/catalog/categories', label: 'Categorías' },
+    { to: '/catalog/services', label: 'Servicios' },
   ]
 
   return (

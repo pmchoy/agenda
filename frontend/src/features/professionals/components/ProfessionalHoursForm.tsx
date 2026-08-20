@@ -11,13 +11,13 @@ import { extractErrorMessage, hasFieldErrors } from '@/lib/form-errors'
 import type { ProfessionalHour, ProfessionalHourState } from '@/types/api'
 
 const WEEKDAYS: { value: number; label: string }[] = [
-  { value: 1, label: 'Monday' },
-  { value: 2, label: 'Tuesday' },
-  { value: 3, label: 'Wednesday' },
-  { value: 4, label: 'Thursday' },
-  { value: 5, label: 'Friday' },
-  { value: 6, label: 'Saturday' },
-  { value: 7, label: 'Sunday' },
+  { value: 1, label: 'Lunes' },
+  { value: 2, label: 'Martes' },
+  { value: 3, label: 'Miércoles' },
+  { value: 4, label: 'Jueves' },
+  { value: 5, label: 'Viernes' },
+  { value: 6, label: 'Sábado' },
+  { value: 7, label: 'Domingo' },
 ]
 
 type DayRow = {
@@ -68,7 +68,7 @@ export function ProfessionalHoursForm({
       (row) => row.state === 'open' && row.opens_at >= row.closes_at,
     )
     if (hasInvalidWindow) {
-      toast.error('Closing time must be after opening time for every open day.')
+      toast.error('La hora de cierre debe ser posterior a la hora de apertura en todos los días abiertos.')
       return
     }
 
@@ -80,7 +80,7 @@ export function ProfessionalHoursForm({
         closes_at: row.state === 'open' ? row.closes_at : null,
       })),
       {
-        onSuccess: () => toast.success('Hours updated.'),
+        onSuccess: () => toast.success('Horario actualizado.'),
       },
     )
   }
@@ -88,9 +88,9 @@ export function ProfessionalHoursForm({
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        &quot;Inherit&quot; follows the salon&apos;s business hours for that day. Choose
-        &quot;Closed&quot; to override a normally-open day as off, or &quot;Open&quot; to set
-        custom hours just for this professional.
+        &quot;Heredar&quot; sigue el horario comercial del salón para ese día. Elija
+        &quot;Cerrado&quot; para marcar como no laborable un día normalmente abierto, o
+        &quot;Abierto&quot; para establecer un horario personalizado solo para este profesional.
       </p>
 
       {updateHours.isError && !hasFieldErrors(updateHours.error) && (
@@ -117,9 +117,9 @@ export function ProfessionalHoursForm({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="inherit">Inherit</SelectItem>
-                <SelectItem value="open">Open</SelectItem>
-                <SelectItem value="closed">Closed</SelectItem>
+                <SelectItem value="inherit">Heredar</SelectItem>
+                <SelectItem value="open">Abierto</SelectItem>
+                <SelectItem value="closed">Cerrado</SelectItem>
               </SelectContent>
             </Select>
 
@@ -131,7 +131,7 @@ export function ProfessionalHoursForm({
                   onChange={(event) => updateRow(row.weekday, { opens_at: event.target.value })}
                   className="w-32"
                 />
-                <span className="text-muted-foreground">to</span>
+                <span className="text-muted-foreground">a</span>
                 <Input
                   type="time"
                   value={row.closes_at}
@@ -141,7 +141,7 @@ export function ProfessionalHoursForm({
               </div>
             ) : (
               <span className="text-sm text-muted-foreground sm:w-[17.5rem]">
-                {row.state === 'inherit' ? 'Follows business hours' : 'Closed all day'}
+                {row.state === 'inherit' ? 'Sigue el horario comercial' : 'Cerrado todo el día'}
               </span>
             )}
           </div>
@@ -151,7 +151,7 @@ export function ProfessionalHoursForm({
       <div className="flex justify-end">
         <Button onClick={handleSave} disabled={updateHours.isPending}>
           {updateHours.isPending && <Loader2 className="animate-spin" />}
-          Save hours
+          Guardar horario
         </Button>
       </div>
     </div>

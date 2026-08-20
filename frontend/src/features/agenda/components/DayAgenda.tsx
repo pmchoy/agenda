@@ -10,8 +10,8 @@ export function DayAgenda({ appointments }: { appointments: Appointment[] }) {
       isLoading={false}
       isError={false}
       isEmpty={appointments.length === 0}
-      emptyTitle="Nothing booked"
-      emptyDescription="No appointments for this day yet."
+      emptyTitle="Nada reservado"
+      emptyDescription="Todavía no hay turnos para este día."
     >
       <div className="rounded-lg border border-border">
         {appointments.map((appointment) => (

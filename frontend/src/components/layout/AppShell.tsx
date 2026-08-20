@@ -24,7 +24,7 @@ export function AppShell() {
         <div className="fixed inset-0 z-40 md:hidden">
           <button
             type="button"
-            aria-label="Close navigation"
+            aria-label="Cerrar navegación"
             className="absolute inset-0 bg-black/40"
             onClick={() => setIsMobileNavOpen(false)}
           />
@@ -39,7 +39,7 @@ export function AppShell() {
           <Button
             variant="outline"
             size="icon"
-            aria-label="Open navigation"
+            aria-label="Abrir navegación"
             onClick={() => setIsMobileNavOpen((open) => !open)}
           >
             {isMobileNavOpen ? <X /> : <Menu />}
