@@ -29,6 +29,9 @@ class UpdateSettingsRequest extends FormRequest
         return [
             'settings' => ['required', 'array'],
             'settings.slot_grid_minutes' => ['sometimes', 'integer', 'min:5', 'max:120'],
+            'settings.reminder_send_time' => ['sometimes', 'date_format:H:i'],
+            'settings.confirmation_message_text' => ['sometimes', 'string', 'max:500'],
+            'settings.reminder_message_text' => ['sometimes', 'string', 'max:500'],
         ];
     }
 }
