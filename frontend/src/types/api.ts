@@ -68,3 +68,32 @@ export type Setting = {
   key: string
   value: string
 }
+
+/** A bookable slot returned by `GET /api/v1/availability` — always carries a
+ * concrete professional, even when the search was "no preference"
+ * (`AvailabilityEngine::forAnyProfessional()` resolves that at search time). */
+export type Slot = {
+  starts_at: string
+  ends_at: string
+  professional_id: number
+  professional_name: string
+}
+
+export type AppointmentStatusValue = 'scheduled' | 'confirmed' | 'cancelled' | 'completed'
+export type AppointmentOrigin = 'dashboard' | 'whatsapp'
+
+export type Appointment = {
+  id: number
+  service_id: number
+  professional_id: number
+  client_id: number
+  starts_at: string
+  ends_at: string
+  status: AppointmentStatusValue
+  origin: AppointmentOrigin
+  notes: string | null
+  cancelled_at: string | null
+  client?: Client
+  service?: Service
+  professional?: Professional
+}
