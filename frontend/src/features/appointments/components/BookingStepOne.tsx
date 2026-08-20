@@ -58,7 +58,7 @@ export function BookingStepOne({ initial, onNext }: BookingStepOneProps) {
       }}
     >
       <div className="space-y-2">
-        <Label>Category</Label>
+        <Label>Categoría</Label>
         <Select
           value={categoryId ? String(categoryId) : 'all'}
           onValueChange={(value) => {
@@ -68,10 +68,10 @@ export function BookingStepOne({ initial, onNext }: BookingStepOneProps) {
           }}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Any category" />
+            <SelectValue placeholder="Cualquier categoría" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Any category</SelectItem>
+            <SelectItem value="all">Cualquier categoría</SelectItem>
             {categories?.map((category) => (
               <SelectItem key={category.id} value={String(category.id)}>
                 {category.name}
@@ -82,7 +82,7 @@ export function BookingStepOne({ initial, onNext }: BookingStepOneProps) {
       </div>
 
       <div className="space-y-2">
-        <Label>Service</Label>
+        <Label>Servicio</Label>
         <Select
           value={serviceId !== null ? String(serviceId) : ''}
           onValueChange={(value) => {
@@ -91,7 +91,7 @@ export function BookingStepOne({ initial, onNext }: BookingStepOneProps) {
           }}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Choose a service" />
+            <SelectValue placeholder="Elija un servicio" />
           </SelectTrigger>
           <SelectContent>
             {filteredServices.map((service) => (
@@ -104,17 +104,17 @@ export function BookingStepOne({ initial, onNext }: BookingStepOneProps) {
       </div>
 
       <div className="space-y-2">
-        <Label>Professional</Label>
+        <Label>Profesional</Label>
         <Select
           value={String(professionalId)}
           onValueChange={(value) => setProfessionalId(value === 'any' ? 'any' : Number(value))}
           disabled={serviceId === null}
         >
           <SelectTrigger>
-            <SelectValue placeholder="No preference" />
+            <SelectValue placeholder="Sin preferencia" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="any">No preference</SelectItem>
+            <SelectItem value="any">Sin preferencia</SelectItem>
             {eligibleProfessionals.map((professional) => (
               <SelectItem key={professional.id} value={String(professional.id)}>
                 {professional.name}
@@ -123,13 +123,13 @@ export function BookingStepOne({ initial, onNext }: BookingStepOneProps) {
           </SelectContent>
         </Select>
         <p className="text-sm text-muted-foreground">
-          &quot;No preference&quot; searches every qualified professional and shows exactly who each
-          available time would be with.
+          &quot;Sin preferencia&quot; busca entre todos los profesionales habilitados y muestra
+          exactamente con quién sería cada horario disponible.
         </p>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="booking-date">Date</Label>
+        <Label htmlFor="booking-date">Fecha</Label>
         <Input
           id="booking-date"
           type="date"
@@ -141,7 +141,7 @@ export function BookingStepOne({ initial, onNext }: BookingStepOneProps) {
 
       <div className="flex justify-end">
         <Button type="submit" disabled={!canSubmit}>
-          Find available times
+          Buscar horarios disponibles
         </Button>
       </div>
     </form>

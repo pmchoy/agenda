@@ -27,7 +27,7 @@ class CatalogSeeder extends Seeder
         );
 
         Service::firstOrCreate(
-            ['service_category_id' => $category->id, 'name' => 'Placeholder Service'],
+            ['service_category_id' => $category->id, 'name' => 'Servicio de ejemplo'],
             ['duration_minutes' => 30, 'price' => null, 'is_active' => true, 'sort_order' => 0]
         );
     }

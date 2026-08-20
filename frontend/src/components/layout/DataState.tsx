@@ -29,8 +29,8 @@ export function DataState({
   error,
   onRetry,
   loadingFallback,
-  emptyTitle = 'Nothing here yet',
-  emptyDescription = 'There is no data to show right now.',
+  emptyTitle = 'Todavía no hay nada',
+  emptyDescription = 'No hay datos para mostrar en este momento.',
   emptyAction,
   children,
 }: DataStateProps) {
@@ -51,12 +51,12 @@ export function DataState({
       <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border py-14 text-center">
         <AlertTriangle className="size-8 text-destructive" />
         <div>
-          <p className="text-sm font-medium text-foreground">Something went wrong</p>
+          <p className="text-sm font-medium text-foreground">Ocurrió un error</p>
           <p className="mt-1 text-sm text-muted-foreground">{extractMessage(error)}</p>
         </div>
         {onRetry && (
           <Button variant="outline" size="sm" onClick={onRetry}>
-            Try again
+            Reintentar
           </Button>
         )}
       </div>
@@ -81,7 +81,7 @@ export function DataState({
 
 function extractMessage(error: unknown): string {
   if (error && typeof error === 'object' && 'message' in error) {
-    return String((error as { message?: unknown }).message ?? 'Please try again.')
+    return String((error as { message?: unknown }).message ?? 'Por favor, intente nuevamente.')
   }
-  return 'Please try again.'
+  return 'Por favor, intente nuevamente.'
 }

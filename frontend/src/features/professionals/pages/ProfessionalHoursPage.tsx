@@ -22,13 +22,13 @@ export function ProfessionalHoursPage() {
     <div>
       <Button variant="ghost" size="sm" asChild className="mb-2 -ml-2">
         <Link to="/professionals">
-          <ArrowLeft /> Back to professionals
+          <ArrowLeft /> Volver a profesionales
         </Link>
       </Button>
 
       <PageHeader
-        title={professional.data ? `${professional.data.name}'s hours` : 'Working hours'}
-        description="Override the salon's business hours for this professional, day by day."
+        title={professional.data ? `Horario de ${professional.data.name}` : 'Horario laboral'}
+        description="Anule el horario comercial del salón para este profesional, día por día."
       />
 
       <DataState

@@ -24,9 +24,9 @@ import { applyServerErrors, extractErrorMessage, hasFieldErrors } from '@/lib/fo
 import type { Service } from '@/types/api'
 
 const serviceSchema = z.object({
-  service_category_id: z.number().int('Choose a category.').positive('Choose a category.'),
-  name: z.string().min(1, 'Name is required.').max(255),
-  duration_minutes: z.number().int().min(1, 'Duration must be at least 1 minute.'),
+  service_category_id: z.number().int('Elija una categoría.').positive('Elija una categoría.'),
+  name: z.string().min(1, 'El nombre es obligatorio.').max(255),
+  duration_minutes: z.number().int().min(1, 'La duración debe ser de al menos 1 minuto.'),
   price: z.number().min(0).nullable(),
   sort_order: z.number().int().min(0),
   is_active: z.boolean(),
@@ -80,7 +80,7 @@ export function ServiceFormDialog({ open, onOpenChange, service }: ServiceFormDi
 
     action
       .then(() => {
-        toast.success(isEditing ? 'Service updated.' : 'Service created.')
+        toast.success(isEditing ? 'Servicio actualizado.' : 'Servicio creado.')
         onOpenChange(false)
       })
       .catch((error: unknown) => applyServerErrors(error, form))
@@ -90,8 +90,8 @@ export function ServiceFormDialog({ open, onOpenChange, service }: ServiceFormDi
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit service' : 'New service'}</DialogTitle>
-          <DialogDescription>Services are what clients book appointments for.</DialogDescription>
+          <DialogTitle>{isEditing ? 'Editar servicio' : 'Nuevo servicio'}</DialogTitle>
+          <DialogDescription>Los servicios son lo que los clientes reservan como turnos.</DialogDescription>
         </DialogHeader>
 
         {mutation.isError && !hasFieldErrors(mutation.error) && (
@@ -107,14 +107,14 @@ export function ServiceFormDialog({ open, onOpenChange, service }: ServiceFormDi
               name="service_category_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>Categoría</FormLabel>
                   <Select
                     value={field.value ? String(field.value) : undefined}
                     onValueChange={(value) => field.onChange(Number(value))}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Choose a category" />
+                        <SelectValue placeholder="Elija una categoría" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -135,9 +135,9 @@ export function ServiceFormDialog({ open, onOpenChange, service }: ServiceFormDi
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. Haircut" {...field} />
+                    <Input placeholder="ej. Corte de cabello" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -150,7 +150,7 @@ export function ServiceFormDialog({ open, onOpenChange, service }: ServiceFormDi
                 name="duration_minutes"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Duration (minutes)</FormLabel>
+                    <FormLabel>Duración (minutos)</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -172,13 +172,13 @@ export function ServiceFormDialog({ open, onOpenChange, service }: ServiceFormDi
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Price</FormLabel>
+                    <FormLabel>Precio</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
                         min={0}
                         step="0.01"
-                        placeholder="Optional"
+                        placeholder="Opcional"
                         name={field.name}
                         onBlur={field.onBlur}
                         ref={field.ref}
@@ -199,7 +199,7 @@ export function ServiceFormDialog({ open, onOpenChange, service }: ServiceFormDi
               name="sort_order"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sort order</FormLabel>
+                  <FormLabel>Orden</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -222,9 +222,9 @@ export function ServiceFormDialog({ open, onOpenChange, service }: ServiceFormDi
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border border-border p-3">
                   <div>
-                    <FormLabel>Active</FormLabel>
+                    <FormLabel>Activo</FormLabel>
                     <p className="text-sm text-muted-foreground">
-                      Inactive services are hidden from booking.
+                      Los servicios inactivos se ocultan en la reserva de turnos.
                     </p>
                   </div>
                   <FormControl>
@@ -236,11 +236,11 @@ export function ServiceFormDialog({ open, onOpenChange, service }: ServiceFormDi
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-                Cancel
+                Cancelar
               </Button>
               <Button type="submit" disabled={mutation.isPending}>
                 {mutation.isPending && <Loader2 className="animate-spin" />}
-                {isEditing ? 'Save changes' : 'Create service'}
+                {isEditing ? 'Guardar cambios' : 'Crear servicio'}
               </Button>
             </DialogFooter>
           </form>

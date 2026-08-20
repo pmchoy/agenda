@@ -34,11 +34,11 @@ export function addDays(dateStr: string, days: number): string {
   return date.toISOString().slice(0, 10)
 }
 
-/** Human-readable label for a `YYYY-MM-DD` date string, e.g. "Wednesday, August 20". */
+/** Human-readable label for a `YYYY-MM-DD` date string, e.g. "miércoles, 20 de agosto". */
 export function formatDateLabel(dateStr: string): string {
   const [year, month, day] = dateStr.split('-').map(Number)
   const date = new Date(Date.UTC(year, month - 1, day))
-  return new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat('es-UY', {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
@@ -46,11 +46,11 @@ export function formatDateLabel(dateStr: string): string {
   }).format(date)
 }
 
-/** Short weekday + day label used in the compact weekly agenda headers, e.g. "Mon 18". */
+/** Short weekday + day label used in the compact weekly agenda headers, e.g. "lun 18". */
 export function formatShortDateLabel(dateStr: string): string {
   const [year, month, day] = dateStr.split('-').map(Number)
   const date = new Date(Date.UTC(year, month - 1, day))
-  return new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat('es-UY', {
     weekday: 'short',
     day: 'numeric',
     timeZone: 'UTC',

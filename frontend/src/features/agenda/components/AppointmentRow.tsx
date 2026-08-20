@@ -50,7 +50,7 @@ export function AppointmentRow({ appointment, compact = false }: AppointmentRowP
           appointmentId={appointment.id}
           trigger={
             <Button variant="ghost" size="sm" className="shrink-0">
-              Cancel
+              Cancelar
             </Button>
           }
         />

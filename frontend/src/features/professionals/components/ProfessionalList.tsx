@@ -21,11 +21,11 @@ export function ProfessionalList({ professionals }: { professionals: Professiona
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Phone</TableHead>
-            <TableHead>Priority</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead>Nombre</TableHead>
+            <TableHead>Teléfono</TableHead>
+            <TableHead>Prioridad</TableHead>
+            <TableHead>Estado</TableHead>
+            <TableHead className="text-right">Acciones</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -36,12 +36,12 @@ export function ProfessionalList({ professionals }: { professionals: Professiona
               <TableCell>{professional.priority}</TableCell>
               <TableCell>
                 <Badge variant={professional.is_active ? 'success' : 'muted'}>
-                  {professional.is_active ? 'Active' : 'Inactive'}
+                  {professional.is_active ? 'Activo' : 'Inactivo'}
                 </Badge>
               </TableCell>
               <TableCell className="text-right">
                 <div className="flex justify-end gap-1">
-                  <Button variant="ghost" size="icon" aria-label={`Hours for ${professional.name}`} asChild>
+                  <Button variant="ghost" size="icon" aria-label={`Horario de ${professional.name}`} asChild>
                     <Link to={`/professionals/${professional.id}/hours`}>
                       <Clock />
                     </Link>
@@ -49,22 +49,22 @@ export function ProfessionalList({ professionals }: { professionals: Professiona
                   <Button
                     variant="ghost"
                     size="icon"
-                    aria-label={`Edit ${professional.name}`}
+                    aria-label={`Editar ${professional.name}`}
                     onClick={() => setEditing(professional)}
                   >
                     <Pencil />
                   </Button>
                   <ConfirmDeleteDialog
                     trigger={
-                      <Button variant="ghost" size="icon" aria-label={`Delete ${professional.name}`}>
+                      <Button variant="ghost" size="icon" aria-label={`Eliminar ${professional.name}`}>
                         <Trash2 />
                       </Button>
                     }
-                    title={`Delete "${professional.name}"?`}
-                    description="This cannot be undone. Existing appointments for this professional are not affected."
+                    title={`¿Eliminar "${professional.name}"?`}
+                    description="Esta acción no se puede deshacer. Los turnos existentes de este profesional no se ven afectados."
                     onConfirm={() =>
                       deleteProfessional.mutate(professional.id, {
-                        onSuccess: () => toast.success('Professional deleted.'),
+                        onSuccess: () => toast.success('Profesional eliminado.'),
                         onError: (error) => toast.error(extractErrorMessage(error)),
                       })
                     }

@@ -31,8 +31,8 @@ import { applyServerErrors, extractErrorMessage, hasFieldErrors } from '@/lib/fo
 import type { Client } from '@/types/api'
 
 const clientSchema = z.object({
-  name: z.string().min(1, 'Name is required.').max(255),
-  phone: z.string().min(1, 'Phone is required.'),
+  name: z.string().min(1, 'El nombre es obligatorio.').max(255),
+  phone: z.string().min(1, 'El teléfono es obligatorio.'),
   notes: z.string().optional().nullable(),
 })
 
@@ -77,7 +77,7 @@ export function ClientFormDialog({ open, onOpenChange, client }: ClientFormDialo
 
     action
       .then(() => {
-        toast.success(isEditing ? 'Client updated.' : 'Client created.')
+        toast.success(isEditing ? 'Cliente actualizado.' : 'Cliente creado.')
         onOpenChange(false)
       })
       .catch((error: unknown) => applyServerErrors(error, form))
@@ -87,8 +87,8 @@ export function ClientFormDialog({ open, onOpenChange, client }: ClientFormDialo
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit client' : 'New client'}</DialogTitle>
-          <DialogDescription>Clients are matched by phone number across bookings.</DialogDescription>
+          <DialogTitle>{isEditing ? 'Editar cliente' : 'Nuevo cliente'}</DialogTitle>
+          <DialogDescription>Los clientes se identifican por número de teléfono en todas las reservas.</DialogDescription>
         </DialogHeader>
 
         {mutation.isError && !hasFieldErrors(mutation.error) && (
@@ -104,9 +104,9 @@ export function ClientFormDialog({ open, onOpenChange, client }: ClientFormDialo
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
-                    <Input autoFocus placeholder="e.g. Lucía Fernández" {...field} />
+                    <Input autoFocus placeholder="ej. Lucía Fernández" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,13 +118,13 @@ export function ClientFormDialog({ open, onOpenChange, client }: ClientFormDialo
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone</FormLabel>
+                  <FormLabel>Teléfono</FormLabel>
                   <FormControl>
-                    <Input type="tel" placeholder="e.g. 099 123 456" {...field} />
+                    <Input type="tel" placeholder="ej. 099 123 456" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Any format works — we&apos;ll normalize it automatically. One phone number per
-                    client.
+                    Funciona cualquier formato — lo normalizaremos automáticamente. Un número de
+                    teléfono por cliente.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -136,9 +136,9 @@ export function ClientFormDialog({ open, onOpenChange, client }: ClientFormDialo
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Notes</FormLabel>
+                  <FormLabel>Notas</FormLabel>
                   <FormControl>
-                    <Textarea rows={3} placeholder="Optional" {...field} value={field.value ?? ''} />
+                    <Textarea rows={3} placeholder="Opcional" {...field} value={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -147,11 +147,11 @@ export function ClientFormDialog({ open, onOpenChange, client }: ClientFormDialo
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-                Cancel
+                Cancelar
               </Button>
               <Button type="submit" disabled={mutation.isPending}>
                 {mutation.isPending && <Loader2 className="animate-spin" />}
-                {isEditing ? 'Save changes' : 'Create client'}
+                {isEditing ? 'Guardar cambios' : 'Crear cliente'}
               </Button>
             </DialogFooter>
           </form>

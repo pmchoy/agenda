@@ -38,15 +38,17 @@ export function AgendaPage() {
     setParam('date', addDays(date, direction * (view === 'week' ? 7 : 1)))
   }
 
+  const viewLabels: Record<AgendaView, string> = { day: 'Día', week: 'Semana' }
+
   return (
     <div>
       <PageHeader
         title="Agenda"
-        description={view === 'week' ? 'The week at a glance, Monday through Sunday.' : formatDateLabel(date)}
+        description={view === 'week' ? 'La semana de un vistazo, de lunes a domingo.' : formatDateLabel(date)}
         actions={
           <Button asChild>
             <Link to="/appointments/new">
-              <Plus /> New appointment
+              <Plus /> Nuevo turno
             </Link>
           </Button>
         }
@@ -60,25 +62,25 @@ export function AgendaPage() {
               type="button"
               onClick={() => setParam('view', value)}
               className={cn(
-                'rounded px-3 py-1.5 text-sm font-medium capitalize transition-colors',
+                'rounded px-3 py-1.5 text-sm font-medium transition-colors',
                 view === value
                   ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:text-foreground',
               )}
             >
-              {value}
+              {viewLabels[value]}
             </button>
           ))}
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => step(-1)} aria-label="Previous">
+          <Button variant="outline" size="icon" onClick={() => step(-1)} aria-label="Anterior">
             <ChevronLeft />
           </Button>
           <Button variant="outline" size="sm" onClick={() => setParam('date', todayInMontevideo())}>
-            Today
+            Hoy
           </Button>
-          <Button variant="outline" size="icon" onClick={() => step(1)} aria-label="Next">
+          <Button variant="outline" size="icon" onClick={() => step(1)} aria-label="Siguiente">
             <ChevronRight />
           </Button>
         </div>
@@ -90,7 +92,7 @@ export function AgendaPage() {
             onCheckedChange={(checked) => setParam('include_cancelled', String(checked))}
           />
           <Label htmlFor="include-cancelled" className="text-sm font-normal text-muted-foreground">
-            Show cancelled
+            Mostrar cancelados
           </Label>
         </div>
       </div>

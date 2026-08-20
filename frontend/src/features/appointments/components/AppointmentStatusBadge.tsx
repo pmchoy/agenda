@@ -2,10 +2,10 @@ import { Badge } from '@/components/ui/badge'
 import type { AppointmentStatusValue } from '@/types/api'
 
 const LABEL: Record<AppointmentStatusValue, string> = {
-  scheduled: 'Scheduled',
-  confirmed: 'Confirmed',
-  cancelled: 'Cancelled',
-  completed: 'Completed',
+  scheduled: 'Programado',
+  confirmed: 'Confirmado',
+  cancelled: 'Cancelado',
+  completed: 'Completado',
 }
 
 const VARIANT: Record<AppointmentStatusValue, 'secondary' | 'success' | 'muted' | 'outline'> = {

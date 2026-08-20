@@ -22,11 +22,11 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   { to: '/agenda', label: 'Agenda', icon: CalendarClock },
-  { to: '/catalog/categories', label: 'Catalog', icon: LayoutGrid, match: '/catalog' },
-  { to: '/professionals', label: 'Professionals', icon: UserRound, match: '/professionals' },
-  { to: '/clients', label: 'Clients', icon: Users },
-  { to: '/business-hours', label: 'Business hours', icon: Clock },
-  { to: '/settings', label: 'Settings', icon: Settings },
+  { to: '/catalog/categories', label: 'Catálogo', icon: LayoutGrid, match: '/catalog' },
+  { to: '/professionals', label: 'Profesionales', icon: UserRound, match: '/professionals' },
+  { to: '/clients', label: 'Clientes', icon: Users },
+  { to: '/business-hours', label: 'Horario comercial', icon: Clock },
+  { to: '/settings', label: 'Configuración', icon: Settings },
 ]
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
@@ -85,7 +85,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground disabled:opacity-50"
         >
           <LogOut className="size-4 shrink-0" />
-          Sign out
+          Cerrar sesión
         </button>
       </div>
     </div>

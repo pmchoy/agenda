@@ -15,11 +15,11 @@ export function ProfessionalsPage() {
   return (
     <div>
       <PageHeader
-        title="Professionals"
-        description="Manage staff, their booking priority, and qualified services."
+        title="Profesionales"
+        description="Administre al personal, su prioridad de reserva y los servicios habilitados."
         actions={
           <Button onClick={() => setIsCreating(true)}>
-            <Plus /> New professional
+            <Plus /> Nuevo profesional
           </Button>
         }
       />
@@ -30,9 +30,9 @@ export function ProfessionalsPage() {
         error={error}
         onRetry={() => refetch()}
         isEmpty={!!professionals && professionals.length === 0}
-        emptyTitle="No professionals yet"
-        emptyDescription="Add a professional so services can be booked with them."
-        emptyAction={<Button onClick={() => setIsCreating(true)}>New professional</Button>}
+        emptyTitle="Todavía no hay profesionales"
+        emptyDescription="Agregue un profesional para poder reservar turnos con él o ella."
+        emptyAction={<Button onClick={() => setIsCreating(true)}>Nuevo profesional</Button>}
       >
         {professionals && <ProfessionalList professionals={professionals} />}
       </DataState>

@@ -16,11 +16,11 @@ export function ServicesPage() {
   return (
     <div>
       <PageHeader
-        title="Catalog"
-        description="Manage service categories and services offered by the salon."
+        title="Catálogo"
+        description="Administre las categorías de servicios y los servicios que ofrece el salón."
         actions={
           <Button onClick={() => setIsCreating(true)}>
-            <Plus /> New service
+            <Plus /> Nuevo servicio
           </Button>
         }
       />
@@ -33,9 +33,9 @@ export function ServicesPage() {
         error={error}
         onRetry={() => refetch()}
         isEmpty={!!services && services.length === 0}
-        emptyTitle="No services yet"
-        emptyDescription="Add a service so it can be booked."
-        emptyAction={<Button onClick={() => setIsCreating(true)}>New service</Button>}
+        emptyTitle="Todavía no hay servicios"
+        emptyDescription="Agregue un servicio para que pueda reservarse."
+        emptyAction={<Button onClick={() => setIsCreating(true)}>Nuevo servicio</Button>}
       >
         {services && <ServiceList services={services} />}
       </DataState>

@@ -23,13 +23,13 @@ import { useCurrentUser, useForgotPassword, useLogin } from '@/features/auth/que
 import type { ApiErrorBody } from '@/lib/api-client'
 
 const loginSchema = z.object({
-  email: z.email('Enter a valid email address.'),
-  password: z.string().min(1, 'Password is required.'),
+  email: z.email('Ingrese una dirección de correo electrónico válida.'),
+  password: z.string().min(1, 'La contraseña es obligatoria.'),
   remember: z.boolean().optional(),
 })
 
 const forgotPasswordSchema = z.object({
-  email: z.email('Enter a valid email address.'),
+  email: z.email('Ingrese una dirección de correo electrónico válida.'),
 })
 
 type LoginValues = z.infer<typeof loginSchema>
@@ -85,8 +85,8 @@ function LoginForm({ onForgotPassword }: { onForgotPassword: () => void }) {
   return (
     <>
       <CardHeader>
-        <CardTitle>Sign in</CardTitle>
-        <CardDescription>Use your staff account to access the dashboard.</CardDescription>
+        <CardTitle>Iniciar sesión</CardTitle>
+        <CardDescription>Use su cuenta del equipo para acceder al panel.</CardDescription>
       </CardHeader>
       <CardContent>
         {login.isError && !hasFieldErrors(login.error) && (
@@ -102,7 +102,7 @@ function LoginForm({ onForgotPassword }: { onForgotPassword: () => void }) {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Correo electrónico</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
@@ -123,13 +123,13 @@ function LoginForm({ onForgotPassword }: { onForgotPassword: () => void }) {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center justify-between">
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Contraseña</FormLabel>
                     <button
                       type="button"
                       onClick={onForgotPassword}
                       className="text-xs font-medium text-primary hover:underline"
                     >
-                      Forgot password?
+                      ¿Olvidaste tu contraseña?
                     </button>
                   </div>
                   <FormControl>
@@ -151,14 +151,14 @@ function LoginForm({ onForgotPassword }: { onForgotPassword: () => void }) {
                     onChange={(event) => field.onChange(event.target.checked)}
                     className="size-4 rounded border-input text-primary accent-primary"
                   />
-                  Remember me
+                  Recordarme
                 </label>
               )}
             />
 
             <Button type="submit" className="w-full" disabled={login.isPending}>
               {login.isPending && <Loader2 className="animate-spin" />}
-              Sign in
+              Iniciar sesión
             </Button>
           </form>
         </Form>
@@ -187,9 +187,10 @@ function ForgotPasswordForm({ onBack }: { onBack: () => void }) {
   return (
     <>
       <CardHeader>
-        <CardTitle>Reset your password</CardTitle>
+        <CardTitle>Restablecer tu contraseña</CardTitle>
         <CardDescription>
-          We&apos;ll email you a link to reset your password if the address matches an account.
+          Te enviaremos por correo electrónico un enlace para restablecer tu contraseña si la
+          dirección coincide con una cuenta.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -211,7 +212,7 @@ function ForgotPasswordForm({ onBack }: { onBack: () => void }) {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Correo electrónico</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
@@ -229,10 +230,10 @@ function ForgotPasswordForm({ onBack }: { onBack: () => void }) {
             <div className="flex flex-col gap-2">
               <Button type="submit" className="w-full" disabled={forgotPassword.isPending}>
                 {forgotPassword.isPending && <Loader2 className="animate-spin" />}
-                Send reset link
+                Enviar enlace de restablecimiento
               </Button>
               <Button type="button" variant="ghost" className="w-full" onClick={onBack}>
-                Back to sign in
+                Volver a iniciar sesión
               </Button>
             </div>
           </form>
@@ -261,7 +262,7 @@ function hasFieldErrors(error: unknown): boolean {
 
 function extractMessage(error: unknown): string {
   if (axios.isAxiosError<ApiErrorBody>(error)) {
-    return error.response?.data?.message ?? 'Something went wrong. Please try again.'
+    return error.response?.data?.message ?? 'Ocurrió un error. Por favor, intente nuevamente.'
   }
-  return 'Something went wrong. Please try again.'
+  return 'Ocurrió un error. Por favor, intente nuevamente.'
 }

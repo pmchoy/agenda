@@ -9,8 +9,8 @@ export function BusinessHoursPage() {
   return (
     <div>
       <PageHeader
-        title="Business hours"
-        description="The salon's default weekly schedule. Professionals inherit these hours unless they have their own override."
+        title="Horario comercial"
+        description="El horario semanal predeterminado del salón. Los profesionales heredan este horario salvo que tengan una anulación propia."
       />
 
       <DataState isLoading={isPending} isError={isError} error={error} onRetry={() => refetch()} isEmpty={false}>

@@ -11,13 +11,13 @@ import { extractErrorMessage, hasFieldErrors } from '@/lib/form-errors'
 import type { BusinessHour } from '@/types/api'
 
 const WEEKDAYS: { value: number; label: string }[] = [
-  { value: 1, label: 'Monday' },
-  { value: 2, label: 'Tuesday' },
-  { value: 3, label: 'Wednesday' },
-  { value: 4, label: 'Thursday' },
-  { value: 5, label: 'Friday' },
-  { value: 6, label: 'Saturday' },
-  { value: 7, label: 'Sunday' },
+  { value: 1, label: 'Lunes' },
+  { value: 2, label: 'Martes' },
+  { value: 3, label: 'Miércoles' },
+  { value: 4, label: 'Jueves' },
+  { value: 5, label: 'Viernes' },
+  { value: 6, label: 'Sábado' },
+  { value: 7, label: 'Domingo' },
 ]
 
 type DayRow = {
@@ -59,7 +59,7 @@ export function BusinessHoursForm({ hours }: { hours: BusinessHour[] }) {
       (row) => !row.is_closed && row.opens_at >= row.closes_at,
     )
     if (hasInvalidWindow) {
-      toast.error('Closing time must be after opening time for every open day.')
+      toast.error('La hora de cierre debe ser posterior a la hora de apertura en todos los días abiertos.')
       return
     }
 
@@ -70,7 +70,7 @@ export function BusinessHoursForm({ hours }: { hours: BusinessHour[] }) {
         opens_at: row.is_closed ? null : row.opens_at,
         closes_at: row.is_closed ? null : row.closes_at,
       })),
-      { onSuccess: () => toast.success('Business hours updated.') },
+      { onSuccess: () => toast.success('Horario comercial actualizado.') },
     )
   }
 
@@ -97,11 +97,11 @@ export function BusinessHoursForm({ hours }: { hours: BusinessHour[] }) {
                 checked={!row.is_closed}
                 onCheckedChange={(checked) => updateRow(row.weekday, { is_closed: !checked })}
               />
-              {row.is_closed ? 'Closed' : 'Open'}
+              {row.is_closed ? 'Cerrado' : 'Abierto'}
             </label>
 
             {row.is_closed ? (
-              <span className="text-sm text-muted-foreground sm:w-[17.5rem]">Closed all day</span>
+              <span className="text-sm text-muted-foreground sm:w-[17.5rem]">Cerrado todo el día</span>
             ) : (
               <div className="flex items-center gap-2">
                 <Input
@@ -110,7 +110,7 @@ export function BusinessHoursForm({ hours }: { hours: BusinessHour[] }) {
                   onChange={(event) => updateRow(row.weekday, { opens_at: event.target.value })}
                   className="w-32"
                 />
-                <span className="text-muted-foreground">to</span>
+                <span className="text-muted-foreground">a</span>
                 <Input
                   type="time"
                   value={row.closes_at}
@@ -126,7 +126,7 @@ export function BusinessHoursForm({ hours }: { hours: BusinessHour[] }) {
       <div className="flex justify-end">
         <Button onClick={handleSave} disabled={updateHours.isPending}>
           {updateHours.isPending && <Loader2 className="animate-spin" />}
-          Save business hours
+          Guardar horario comercial
         </Button>
       </div>
     </div>

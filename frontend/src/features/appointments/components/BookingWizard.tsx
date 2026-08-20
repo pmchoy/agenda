@@ -25,11 +25,11 @@ export function BookingWizard() {
     <div className="max-w-2xl">
       <ol className="mb-6 flex items-center gap-2 text-sm font-medium">
         <li className={cn(selection ? 'text-muted-foreground' : 'text-foreground')}>
-          1. Service &amp; date
+          1. Servicio y fecha
         </li>
         <li className="text-muted-foreground">→</li>
         <li className={cn(selection ? 'text-foreground' : 'text-muted-foreground')}>
-          2. Time &amp; client
+          2. Horario y cliente
         </li>
       </ol>
 

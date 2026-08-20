@@ -20,10 +20,10 @@ export function CategoryList({ categories }: { categories: ServiceCategory[] }) 
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Sort order</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead>Nombre</TableHead>
+            <TableHead>Orden</TableHead>
+            <TableHead>Estado</TableHead>
+            <TableHead className="text-right">Acciones</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -33,7 +33,7 @@ export function CategoryList({ categories }: { categories: ServiceCategory[] }) 
               <TableCell>{category.sort_order}</TableCell>
               <TableCell>
                 <Badge variant={category.is_active ? 'success' : 'muted'}>
-                  {category.is_active ? 'Active' : 'Inactive'}
+                  {category.is_active ? 'Activo' : 'Inactivo'}
                 </Badge>
               </TableCell>
               <TableCell className="text-right">
@@ -41,22 +41,22 @@ export function CategoryList({ categories }: { categories: ServiceCategory[] }) 
                   <Button
                     variant="ghost"
                     size="icon"
-                    aria-label={`Edit ${category.name}`}
+                    aria-label={`Editar ${category.name}`}
                     onClick={() => setEditing(category)}
                   >
                     <Pencil />
                   </Button>
                   <ConfirmDeleteDialog
                     trigger={
-                      <Button variant="ghost" size="icon" aria-label={`Delete ${category.name}`}>
+                      <Button variant="ghost" size="icon" aria-label={`Eliminar ${category.name}`}>
                         <Trash2 />
                       </Button>
                     }
-                    title={`Delete "${category.name}"?`}
-                    description="Services in this category are not deleted, but the category will no longer be available to assign."
+                    title={`¿Eliminar "${category.name}"?`}
+                    description="Los servicios de esta categoría no se eliminan, pero la categoría dejará de estar disponible para asignar."
                     onConfirm={() =>
                       deleteCategory.mutate(category.id, {
-                        onSuccess: () => toast.success('Category deleted.'),
+                        onSuccess: () => toast.success('Categoría eliminada.'),
                         onError: (error) => toast.error(extractErrorMessage(error)),
                       })
                     }

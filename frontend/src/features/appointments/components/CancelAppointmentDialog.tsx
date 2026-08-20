@@ -41,27 +41,27 @@ export function CancelAppointmentDialog({
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Cancel this appointment?</AlertDialogTitle>
+          <AlertDialogTitle>¿Cancelar este turno?</AlertDialogTitle>
           <AlertDialogDescription>
-            The slot frees up immediately for rebooking. The appointment stays visible with a
-            &quot;Cancelled&quot; status — it is not deleted.
+            El horario se libera de inmediato para volver a reservarse. El turno sigue visible con
+            estado &quot;Cancelado&quot; — no se elimina.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Keep appointment</AlertDialogCancel>
+          <AlertDialogCancel>Mantener turno</AlertDialogCancel>
           <AlertDialogAction
             disabled={cancelAppointment.isPending}
             onClick={() =>
               cancelAppointment.mutate(undefined, {
                 onSuccess: () => {
-                  toast.success('Appointment cancelled.')
+                  toast.success('Turno cancelado.')
                   onCancelled?.()
                 },
                 onError: (error) => toast.error(extractErrorMessage(error)),
               })
             }
           >
-            Cancel appointment
+            Cancelar turno
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -24,11 +24,23 @@ const SETTINGS_METADATA: Record<
   { label: string; description?: string; type?: 'number' | 'text'; min?: number; max?: number }
 > = {
   slot_grid_minutes: {
-    label: 'Slot grid (minutes)',
-    description: 'Availability search rounds bookable times to this interval.',
+    label: 'Intervalo de horarios (minutos)',
+    description: 'La búsqueda de disponibilidad redondea los horarios reservables a este intervalo.',
     type: 'number',
     min: 5,
     max: 120,
+  },
+  reminder_send_time: {
+    label: 'Hora de envío del recordatorio',
+    description: 'Hora del día en que se envían los recordatorios de turno.',
+  },
+  confirmation_message_text: {
+    label: 'Texto del mensaje de confirmación',
+    description: 'Mensaje enviado al cliente cuando se confirma un turno.',
+  },
+  reminder_message_text: {
+    label: 'Texto del mensaje de recordatorio',
+    description: 'Mensaje enviado al cliente como recordatorio de turno.',
   },
 }
 
@@ -55,7 +67,7 @@ export function SettingsForm({ settings }: { settings: Setting[] }) {
 
   const onSubmit = form.handleSubmit((values) => {
     updateSettings.mutate(values, {
-      onSuccess: () => toast.success('Settings updated.'),
+      onSuccess: () => toast.success('Configuración actualizada.'),
     })
   })
 
@@ -100,16 +112,17 @@ export function SettingsForm({ settings }: { settings: Setting[] }) {
           <div className="flex justify-end">
             <Button type="submit" disabled={updateSettings.isPending}>
               {updateSettings.isPending && <Loader2 className="animate-spin" />}
-              Save settings
+              Guardar configuración
             </Button>
           </div>
         </form>
       </Form>
 
       <p className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
-        Reminder timing and confirmation/reminder message templates aren&apos;t configurable here
-        yet — they&apos;ll appear automatically once that backend support ships. This screen
-        manages every setting the API currently exposes.
+        El horario de recordatorios y las plantillas de mensajes de confirmación/recordatorio
+        todavía no son configurables aquí — aparecerán automáticamente cuando esa funcionalidad se
+        publique en el backend. Esta pantalla administra toda la configuración que expone
+        actualmente la API.
       </p>
     </div>
   )

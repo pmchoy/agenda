@@ -21,8 +21,8 @@ import { applyServerErrors, extractErrorMessage, hasFieldErrors } from '@/lib/fo
 import type { Slot } from '@/types/api'
 
 const clientSchema = z.object({
-  name: z.string().min(1, 'Name is required.').max(255),
-  phone: z.string().min(1, 'Phone is required.'),
+  name: z.string().min(1, 'El nombre es obligatorio.').max(255),
+  phone: z.string().min(1, 'El teléfono es obligatorio.'),
   notes: z.string().optional(),
 })
 
@@ -89,13 +89,13 @@ export function BookingStepTwo({ selection, serviceName, onBack, onBooked }: Boo
         notes: values.notes || null,
       })
       .then((appointment) => {
-        toast.success('Appointment booked.')
+        toast.success('Turno reservado.')
         onBooked(appointment.id)
       })
       .catch((error: unknown) => {
         if (isSlotConflictError(error)) {
           setSelectedSlot(null)
-          setConflictMessage('That time was just booked by someone else — pick another one below.')
+          setConflictMessage('Ese horario acaba de ser reservado por otra persona — elija otro a continuación.')
           void availability.refetch()
           return
         }
@@ -109,12 +109,12 @@ export function BookingStepTwo({ selection, serviceName, onBack, onBooked }: Boo
         <div>
           <p className="text-sm font-medium text-foreground">{serviceName}</p>
           <p className="text-sm text-muted-foreground">
-            {selection.professionalId === 'any' ? 'No preference' : 'Preferred professional'} ·{' '}
+            {selection.professionalId === 'any' ? 'Sin preferencia' : 'Profesional preferido'} ·{' '}
             {formatDateLabel(selection.date)}
           </p>
         </div>
         <Button type="button" variant="ghost" size="sm" onClick={onBack}>
-          <ArrowLeft /> Change
+          <ArrowLeft /> Cambiar
         </Button>
       </div>
 
@@ -125,15 +125,15 @@ export function BookingStepTwo({ selection, serviceName, onBack, onBooked }: Boo
       )}
 
       <div className="space-y-3">
-        <p className="text-sm font-medium text-foreground">Available times</p>
+        <p className="text-sm font-medium text-foreground">Horarios disponibles</p>
         <DataState
           isLoading={availability.isPending}
           isError={availability.isError}
           error={availability.error}
           onRetry={() => void availability.refetch()}
           isEmpty={!!availability.data && availability.data.slots.length === 0}
-          emptyTitle="No availability that day"
-          emptyDescription="Try a different date or professional."
+          emptyTitle="No hay disponibilidad ese día"
+          emptyDescription="Pruebe con otra fecha o profesional."
         >
           {availability.data && (
             <SlotGrid
@@ -162,9 +162,9 @@ export function BookingStepTwo({ selection, serviceName, onBack, onBooked }: Boo
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Client name</FormLabel>
+                <FormLabel>Nombre del cliente</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g. Lucía Fernández" {...field} />
+                  <Input placeholder="ej. Lucía Fernández" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -176,9 +176,9 @@ export function BookingStepTwo({ selection, serviceName, onBack, onBooked }: Boo
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>Teléfono</FormLabel>
                 <FormControl>
-                  <Input type="tel" placeholder="e.g. 099 123 456" {...field} />
+                  <Input type="tel" placeholder="ej. 099 123 456" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -187,7 +187,7 @@ export function BookingStepTwo({ selection, serviceName, onBack, onBooked }: Boo
 
           {suggestions.length > 0 && (
             <div className="rounded-lg border border-border p-2">
-              <p className="px-1 pb-1 text-xs font-medium text-muted-foreground">Existing clients</p>
+              <p className="px-1 pb-1 text-xs font-medium text-muted-foreground">Clientes existentes</p>
               <div className="flex flex-col">
                 {suggestions.map((client) => (
                   <button
@@ -212,9 +212,9 @@ export function BookingStepTwo({ selection, serviceName, onBack, onBooked }: Boo
             name="notes"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Notes</FormLabel>
+                <FormLabel>Notas</FormLabel>
                 <FormControl>
-                  <Textarea rows={3} placeholder="Optional" {...field} />
+                  <Textarea rows={3} placeholder="Opcional" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -224,7 +224,7 @@ export function BookingStepTwo({ selection, serviceName, onBack, onBooked }: Boo
           <div className="flex justify-end">
             <Button type="submit" disabled={!selectedSlot || createAppointment.isPending}>
               {createAppointment.isPending && <Loader2 className="animate-spin" />}
-              Confirm booking
+              Confirmar reserva
             </Button>
           </div>
         </form>
